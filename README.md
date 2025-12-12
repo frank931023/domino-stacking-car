@@ -25,10 +25,30 @@ This document explains how to create an **Automatic Domino Stacking Robot Car** 
 *   **DC Motors** (2x for wheels)
 *   **Domino Dispensing Mechanism** (with DC Motor)
 *   **PIR Sensor** (for domino detection)
-*   **Robot Car Chassis**
+*   **Robot Car Chassis**: [Smart Car Chassis Kit](https://jin-hua.com.tw/page/product/show.aspx?num=32270&lang=TW)
 *   **Battery Pack** 
 *   **Power Bank** (for Raspberry Pi)
 *   **Jumper Wires** (Male-to-Male, Male-to-Female, Male-to-Female)
+
+## Chassis Assembly
+The chassis kit comes with the following components that need to be assembled first:
+
+*   **Chassis** x1
+*   **DC Motors** x2
+*   **Tires** x2
+*   **Universal Wheel** x1
+*   **Encoder Disks** x2
+*   **T-Brackets** x4
+*   **Battery Box** x1
+*   **Switch** x1
+*   **Fasteners**:
+    *   M3*30 Screws x4
+    *   M3*8 Screws x2
+    *   M3*6 Screws x8
+    *   M3 Nuts x6
+    *   10mm Copper Pillars x4
+
+Please assemble the chassis according to the kit instructions before mounting the Raspberry Pi and other components.
 
 ## Pre-installation
 
@@ -151,8 +171,11 @@ iot_final_project/
 
 ## References
 *   **Raspberry Pi Documentation**: https://www.raspberrypi.com/documentation/
+*   **L298N 串接 2個直流馬達(ZK-2WD)**: https://hackmd.io/@resppi4/rJ-ReruVw
 *   **Flask Documentation**: https://flask.palletsprojects.com/
 *   **RPi.GPIO**: https://pypi.org/project/RPi.GPIO/
+*   **[PIR] 使用人體紅外線感應 (PIR) 模組，製作家中安全防護及警報系統**: https://ruten-proteus.blogspot.com/2013/03/PIR-home-security-system.html
+
 
 ## Acknowledgments
 Special thanks to the course instructors and peers for their support in building this IoT project.
