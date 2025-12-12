@@ -1,4 +1,6 @@
-# How to Build an Automatic Domino Stacking Robot Car
+# Domino Stacking Robot Car
+
+How to Build an Automatic Domino Stacking Robot Car
 
 ## Overview
 This document explains how to create an **Automatic Domino Stacking Robot Car** using a Raspberry Pi. The project integrates a mobile robot chassis with a custom domino dispensing mechanism. By following this guide, you will learn how to configure the hardware and software to build a functional robot capable of moving and automatically laying down dominoes in a path. The robot is controlled via a Flask-based web application, providing a modern and responsive interface for navigation and domino control.
@@ -74,6 +76,8 @@ This project uses the **BCM** numbering scheme. Connect your components to the R
 *   **ENA (PWM)**: GPIO 4
 #### Sensors
 *   **PIR Sensor (Domino Detection)**: GPIO 8
+
+![IOT structure](./imgs/iot_structure.png)
 
 
 *Note: Ensure the grounds (GND) of the Raspberry Pi, Motor Driver, and Battery are connected together.*
