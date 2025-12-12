@@ -3,6 +3,11 @@
 ## Overview
 This document explains how to create an **Automatic Domino Stacking Robot Car** using a Raspberry Pi. The project integrates a mobile robot chassis with a custom domino dispensing mechanism. By following this guide, you will learn how to configure the hardware and software to build a functional robot capable of moving and automatically laying down dominoes in a path. The robot is controlled via a Flask-based web application, providing a modern and responsive interface for navigation and domino control.
 
+## Features
+*   **Remote Control:** Navigate the robot car (Forward, Backward, Left, Right) using a web-based interface.
+*   **Domino Dispensing:** Toggle the domino dispensing mechanism on and off.
+*   **Smart Stop (Domino Detection):** Integrated PIR sensor monitors the domino supply. If the dominos run out, the car automatically stops moving to prevent empty runs.
+
 ## Required Components
 
 ### Software
@@ -17,6 +22,7 @@ This document explains how to create an **Automatic Domino Stacking Robot Car** 
 *   **Motor Controller L298N** for wheel motors and domino servo
 *   **DC Motors** (2x for wheels)
 *   **Domino Dispensing Mechanism** (with DC Motor)
+*   **PIR Sensor** (for domino detection)
 *   **Robot Car Chassis**
 *   **Battery Pack** 
 *   **Power Bank** (for Raspberry Pi)
@@ -66,6 +72,9 @@ This project uses the **BCM** numbering scheme. Connect your components to the R
 *   **IN5**: GPIO 2
 *   **IN6**: GPIO 3
 *   **ENA (PWM)**: GPIO 4
+#### Sensors
+*   **PIR Sensor (Domino Detection)**: GPIO 8
+
 
 *Note: Ensure the grounds (GND) of the Raspberry Pi, Motor Driver, and Battery are connected together.*
 
@@ -98,7 +107,12 @@ The domino dispenser is based on the "Pink and Green Domino Machine II" design b
     *   **Domino Run**: Activates the dispenser motor (IN5 High, IN6 Low) and sets PWM duty cycle to 50% to push dominoes out.
     *   **Domino Stop**: Deactivates the dispenser motor and sets PWM to 0%.
 
-### 3. Web Interface (`app.py` & `index.html`)
+### 3. Smart Stop System
+The robot features an intelligent monitoring system to ensure smooth operation.
+*   **Sensor**: A PIR sensor is positioned to detect the presence of dominos in the feed mechanism.
+*   **Logic**: A background thread continuously checks the sensor status. If the sensor indicates that the domino stack is empty (signal HIGH), the system triggers an immediate stop command (`stop()` and `dominoStop()`), preventing the robot from driving without dispensing dominos.
+
+### 4. Web Interface (`app.py` & `index.html`)
 A Flask web server hosts a control panel accessible from any browser on the same network.
 
 *   **D-Pad Controls**: Send JSON requests to `/move` endpoint to control direction.
