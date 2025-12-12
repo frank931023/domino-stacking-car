@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Robot Controller</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --dark-bg: #2c3e50;
+            --light-text: #ecf0f1;
+            --button-bg: #34495e;
+            --button-hover: #2980b9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .control-panel {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .d-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 80px;
+            height: 80px;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--button-bg);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            background-color: var(--button-hover);
+        }
+
+        .btn-stop {
+            background-color: var(--danger-color);
+        }
+        .btn-stop:hover {
+            background-color: #c0392b;
+        }
+
+        .empty {
+            visibility: hidden;
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 50px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--secondary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .status-text {
+            font-size: 14px;
+            margin-top: 10px;
+            opacity: 0.7;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>IoT Robot Controller</h1>
+
+    <div class="control-panel">
+        <div class="d-pad">
+            <div class="empty"></div>
+            <button class="btn" onclick="move('forward')">▲</button>
+            <div class="empty"></div>
+            
+            <button class="btn" onclick="move('left')">◀</button>
+            <button class="btn btn-stop" onclick="move('stop')">■</button>
+            <button class="btn" onclick="move('right')">▶</button>
+            
+            <div class="empty"></div>
+            <button class="btn" onclick="move('backward')">▼</button>
+            <div class="empty"></div>
+        </div>
+
+        <div class="toggle-container">
+            <span>Domino Mode</span>
+            <label class="switch">
+                <input type="checkbox" id="dominoToggle" onchange="toggleDomino()">
+                <span class="slider"></span>
+            </label>
+        </div>
+        
+        <div id="status" class="status-text">Ready</div>
+    </div>
+
+    <script>
+        async function move(action) {
+            updateStatus(`Sending: ${action}...`);
+            try {
+                const response = await fetch('/move', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: action })
+                });
+                const data = await response.json();
+                updateStatus(`Motor: ${data.action}`);
+            } catch (error) {
+                console.error('Error:', error);
+                updateStatus('Error sending command');
+            }
+        }
+
+        async function toggleDomino() {
+            const isChecked = document.getElementById('dominoToggle').checked;
+            const state = isChecked ? 'on' : 'off';
+            updateStatus(`Domino: ${state}...`);
+            
+            try {
+                const response = await fetch('/domino', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ state: state })
+                });
+                const data = await response.json();
+                updateStatus(`Domino is ${data.domino}`);
+            } catch (error) {
+                console.error('Error:', error);
+                // Revert toggle if failed
+                document.getElementById('dominoToggle').checked = !isChecked;
+                updateStatus('Error toggling domino');
+            }
+        }
+
+        function updateStatus(msg) {
+            document.getElementById('status').innerText = msg;
+        }
+    </script>
+
+</body>
+</html>
