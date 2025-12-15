@@ -97,7 +97,7 @@ This project uses the **BCM** numbering scheme. Connect your components to the R
 #### Sensors
 *   **PIR Sensor (Domino Detection)**: GPIO 8
 
-![IOT structure](./imgs/iot_structure.png)
+![IOT structure](./imgs/iot_structure_new.png)
 
 
 *Note: Ensure the grounds (GND) of the Raspberry Pi, Motor Driver, and Battery are connected together.*
