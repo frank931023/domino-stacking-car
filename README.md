@@ -176,6 +176,11 @@ iot_final_project/
 *   **RPi.GPIO**: https://pypi.org/project/RPi.GPIO/
 *   **[PIR] 使用人體紅外線感應 (PIR) 模組，製作家中安全防護及警報系統**: https://ruten-proteus.blogspot.com/2013/03/PIR-home-security-system.html
 
+## My videos
+- [骨牌機器人介紹](https://youtube.com/shorts/L8DvqLvfPbo)
+- [骨牌機器人試跑](https://studio.youtube.com/video/NU4g4P6t3o0/edit)
+- [修理 3D 列印機](https://youtu.be/--k16ZYcSBU)
+
 
 ## Acknowledgments
 Special thanks to the course instructors and peers for their support in building this IoT project.
