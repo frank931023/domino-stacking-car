@@ -122,6 +122,8 @@ The domino dispenser is based on the "Pink and Green Domino Machine II" design b
     *   [Pink and Green Domino Machine II on Instructables](https://www.instructables.com/Pink-and-Green-Domino-Machine-II/)
     *   [Pink and Green Domino Machine II on Cults3D](https://cults3d.com/en/3d-model/gadget/pink-and-green-domino-machine-ii)
 
+![internal structure image](./imgs/internal.png)
+
 *   **How it Works**:
     The mechanism uses a DC gear motor to drive a worm gear, which in turn drives a set of gears and linkages. This system converts the rotary motion of the motor into a reciprocating motion for a piston and a swinging motion for a domino arm.
     1.  **Loading**: Dominoes are stacked vertically in a funnel.
@@ -132,6 +134,8 @@ The domino dispenser is based on the "Pink and Green Domino Machine II" design b
 *   **Control**:
     *   **Domino Run**: Activates the dispenser motor (IN5 High, IN6 Low) and sets PWM duty cycle to 50% to push dominoes out.
     *   **Domino Stop**: Deactivates the dispenser motor and sets PWM to 0%.
+
+![Finish image](./imgs/done.png)
 
 ### 3. Smart Stop System
 The robot features an intelligent monitoring system to ensure smooth operation.
