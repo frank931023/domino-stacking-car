@@ -1,7 +1,6 @@
 # Domino Stacking Robot Car
 
-How to Build an Automatic Domino Stacking Robot Car
-
+112403026 魏仁祥 資管三
 ## Overview
 This document explains how to create an **Automatic Domino Stacking Robot Car** using a Raspberry Pi. The project integrates a mobile robot chassis with a custom domino dispensing mechanism. By following this guide, you will learn how to configure the hardware and software to build a functional robot capable of moving and automatically laying down dominoes in a path. The robot is controlled via a Flask-based web application, providing a modern and responsive interface for navigation and domino control.
 
